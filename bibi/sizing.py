@@ -101,7 +101,7 @@ def kelly_size(
         return SizingResult(0.0, 0.0, 0.0, 0.0, "none")
 
     # --- raw Kelly: edge / sigma^2 ----------------------------------------
-    sigma2 = signal.sigma ** 2
+    sigma2 = max(signal.sigma ** 2, 1e-12)
     raw_kelly = signal.edge / sigma2
     raw_kelly = max(0.0, min(raw_kelly, _MAX_RAW_KELLY))
 
