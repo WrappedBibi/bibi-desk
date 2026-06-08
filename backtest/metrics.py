@@ -84,7 +84,7 @@ def sharpe_ratio(returns: np.ndarray, ppy: float, rf: float = 0.0) -> float:
     sd = np.std(excess, ddof=1)
     if sd < 1e-12:
         return 0.0
-    return float(np.mean(excess) / sd)
+    return float(np.sqrt(ppy) * np.mean(excess) / sd)
 
 
 def sortino_ratio(returns: np.ndarray, ppy: float, rf: float = 0.0) -> float:
@@ -102,7 +102,7 @@ def sortino_ratio(returns: np.ndarray, ppy: float, rf: float = 0.0) -> float:
     dd = np.sqrt(np.mean(np.square(downside)))
     if dd < 1e-12:
         return 0.0
-    return float(np.mean(excess) / dd)
+    return float(np.sqrt(ppy) * np.mean(excess) / dd)
 
 
 def max_drawdown(equity: Sequence[float]) -> float:
