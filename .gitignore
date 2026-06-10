@@ -9,9 +9,15 @@ venv/
 build/
 dist/
 
-# Data + secrets
+# Rust execution engine
+execution-engine/target/
+**/*.rs.bk
+
+# Data + logs + secrets
 data/*.csv
+logs/
 .env
+config.yaml
 
 # OS
 .DS_Store
