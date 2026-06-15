@@ -121,7 +121,11 @@ def ensemble_vote(signals: Sequence[Signal]) -> Signal:
     agree = [s for s in signals if s.side == side]
     edge = sum(s.edge for s in agree) / len(agree)
     sigma = _avg_sigma(agree)
-    alpha = abs(vote) / len(signals)
+    # Normalise conviction by the members that actually voted, not the whole
+    # set: an abstaining (flat) member shouldn't water down the alpha of an
+    # otherwise unanimous, high-conviction ensemble.
+    voters = sum(1 for s in signals if s.side != 0) or 1
+    alpha = abs(vote) / voters
     reason = (
         f"ensemble {'LONG' if side > 0 else 'SHORT'}: "
         f"{len(agree)}/{len(signals)} agree, alpha={alpha:.3f}"
